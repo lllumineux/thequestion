@@ -1,0 +1,232 @@
+@import url("../css/reset.css");
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,900&subset=cyrillic');
+
+body {
+	background: #e5e5e5;
+	font-family: 'Montserrat', sans-serif;
+}
+/*----------Header----------*/
+.header {
+	display: flex;
+	flex-direction: row;
+	align-self: flex-end;
+	width: 100%;
+	height: 75px;
+}
+.site-info {
+	display: flex;
+	align-self: flex-end;
+	padding: 0 0 0 100px;
+}
+.site-name {
+	color: #000;
+	text-decoration: none;
+	font-weight: 900;
+	font-size: 20px;
+}
+.site-menu {
+	display: flex;
+	align-self: flex-end;
+	flex: 1 0 0;
+	padding: 0 0 0 100px;
+}
+.site-menu a {
+	color: #000;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 15px;
+	letter-spacing: -0.5px;
+	transition: all 0.175s linear;
+	margin: 0 50px 0 0;
+}
+.site-menu a:hover {
+	opacity: 0.75;
+}
+.user-controls {
+	display: flex;
+	align-self: flex-end;
+	padding: 0 100px 0 0;
+}
+.exit {
+	transition: all 0.175s linear;
+	max-height: 30px;
+}
+.exit:hover {
+	opacity: 0.75;
+}
+.exit-icon {
+	width: 30px;
+}
+.username {
+	cursor: default;
+	display: flex;
+	align-self: center;
+	font-size: 15px;
+	font-weight: 700;
+	margin: 0 10px 0 0;
+}
+.log-btn {
+	font-weight: 600;
+	transition: all 0.175s linear;
+	color: #000;
+	text-decoration: none;
+	display: flex;
+	align-self: center;
+	font-size: 15px;
+	margin: 0 20px 0 0;
+}
+.reg-btn {
+	transition: all 0.175s linear;
+	color: #fff;
+	text-decoration: none;
+	font-size: 15px;
+	background: #000;
+	padding: 10px 20px;
+	border-radius: 100px;
+}
+.log-btn:hover {
+	opacity: 0.75;
+}
+.reg-btn:hover {
+	opacity: 0.85;
+}
+
+/*----------Index page content----------*/
+.index-content {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	width: 100%;
+	margin: 150px 0 0 0;
+}
+.survey-search-form {
+	width: 350px;
+	margin: 0 100px 0 0;
+}
+.survey-name-search {
+	background: transparent;
+	font-size: 20px;
+	font-weight: 300;
+	border: none;
+	border-bottom: 2px solid #959595;
+	width: 100%;
+	padding: 0 0 5px;
+}
+.survey-preview-list {
+	display: flex;
+	flex-wrap: wrap;
+	width: 750px;
+}
+.survey-preview {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: #ccc;
+	border-radius: 50px;
+	width: 350px;
+	height: 150px;
+	margin: 10px 15px 0 0;
+}
+.survey-preview-name {
+	text-align: center;
+	font-size: 16px;
+	font-weight: 700;
+}
+.survey-preview-category {
+	color: #808080;
+	font-size: 13px;
+	font-weight: 300;
+	margin: 5px 0 0 0;
+}
+.survey-preview-link {
+	transition: all 0.175s linear;
+	color: #e5e5e5;
+	text-decoration: none;
+	font-size: 12px;
+	font-weight: 700;
+	background: #000;
+	border-radius: 100px;
+	padding: 10px 20px;
+	margin: 10px 0 0 0;
+}
+.survey-preview-link:hover {
+	opacity: 0.85;
+}
+
+.wrapper-dropdown-3 .dropdown {
+  /* Size & position */
+    position: absolute;
+    top: 140%;
+    left: 0;
+    right: 0;
+
+    /* Styles */
+    background: white;
+    border-radius: inherit;
+    border: 1px solid rgba(0,0,0,0.17);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    font-weight: normal;
+    transition: all 0.5s ease-in;
+    list-style: none;
+
+    /* Hiding */
+    opacity: 0;
+    pointer-events: none;
+}
+
+.wrapper-dropdown-3 .dropdown li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #8aa8bd;
+    border-bottom: 1px solid #e6e8ea;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,1);
+    transition: all 0.3s ease-out;
+}
+
+.wrapper-dropdown-3 .dropdown li i {
+    float: right;
+    color: inherit;
+}
+
+.wrapper-dropdown-3 .dropdown li:first-of-type a {
+    border-radius: 7px 7px 0 0;
+}
+
+.wrapper-dropdown-3 .dropdown li:last-of-type a {
+    border-radius: 0 0 7px 7px;
+    border: none;
+}
+
+/* Hover state */
+.wrapper-dropdown-3 .dropdown li:hover a {
+    background: #f3f8f8;
+}
+.wrapper-dropdown-3.dropdown:after{
+
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 100%;
+    right: 15px;
+    border-width: 0 6px 6px 6px;
+    border-style: solid;
+    border-color: #fff transparent;
+}
+.wrapper-dropdown-3 .dropdown:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 100%;
+    right: 13px;
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.1) transparent;
+}
+.wrapper-dropdown-3.active .dropdown {
+    opacity: 1;
+    pointer-events: auto;
+}
