@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta http-equiv="content-type" content="text/html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+
+	<title>{{ title }}</title>
+	<link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico">
+
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+</head>
+<body>
+	<div class="header">
+		<div class="site-info">
+			<a href="/index" class="site-name"><h1>question?</h1></a>
+		</div>
+		<div class="site-menu">
+			<a href="#">Мои опросы</a>
+			<a href="#">Создать опрос</a>
+			<a href="#">Поддержать проект</a>
+		</div>
+		<div class="user-controls">
+			{% if session: %}
+				<span class="username">{{ session['username'] }}</span>
+				<a href="/logout" class="exit">
+					<img src="../static/images/icons/exit.png" class="exit-icon">
+				</a>
+			{% else %}
+				<a href="/login" class="log-btn">Войти</a>
+				<a href="/signup" class="reg-btn">Зарегистрироваться</a>
+			{% endif %}
+		</div>
+	</div>
+	{% block content %}
+	{% endblock %}
+</body>
+</html>

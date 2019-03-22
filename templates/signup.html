@@ -1,0 +1,14 @@
+{% extends 'base_without_header.html' %}
+
+{% block content %}
+<form method="post" class="signup-content">
+	<div class="signup-form">
+		<input type="text" name="username" placeholder="Логин..." class="username-field">
+		<input type="password" name="password" placeholder="Пароль..." class="password-field">
+		<div class="signup-form-nav">
+			<button type="submit" class="signup-btn">Зарегистрироваться</button>
+			<a href="/login" class="login-redirect-btn">Войти</a>
+		</div>
+	</div>
+</form>
+{% endblock %}

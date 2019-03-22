@@ -1,0 +1,18 @@
+{% extends 'base_with_header.html' %}
+
+{% block content %}
+<div class="index-content">
+	<div class="survey-search-form">
+		<input type="text" placeholder="Поиск..." class="survey-name-search">
+	</div>
+	<div class="survey-preview-list">
+		{% for survey in survey_list %}
+			<div class="survey-preview">
+				<span class="survey-preview-name">{{ survey_list[survey]['name'] }}</span>
+				<span class="survey-preview-category">{{ survey_list[survey]['category'] }}</span>
+				<a href="surveys/{{ survey_list[survey]['id'] }}" class="survey-preview-link">Октрыть</a>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}
