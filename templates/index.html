@@ -4,6 +4,14 @@
 <div class="index-content">
 	<div class="survey-search-form">
 		<input type="text" placeholder="Поиск..." class="survey-name-search">
+		<div class="category-search-wrapper">
+			<div class="category-search">
+				{% for category_name in category_list %}
+					<div class="category-search__element" onclick="addCurrentCategory(this);">{{ category_name }}</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="category-search-submit" onclick="searchStart();">Найти</div>
 	</div>
 	<div class="survey-preview-list">
 		{% for survey in survey_list %}

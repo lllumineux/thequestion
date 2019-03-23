@@ -3,6 +3,11 @@ from werkzeug.utils import redirect
 
 app = Flask(__name__)
 
+categories = [
+    'Люди',
+    'Другое',
+    'Животное'
+]
 all_surveys = {
     'survey1': {
         'name': 'Гапон красавчик?',
@@ -10,7 +15,7 @@ all_surveys = {
         'id': '1'
     },
     'survey2': {
-        'name': 'Права палочка твикс круче левой?',
+        'name': 'Правая палочка твикс круче левой?',
         'category': 'Другое',
         'id': '2'
     },
@@ -20,6 +25,26 @@ all_surveys = {
         'id': '3'
     },
     'survey4': {
+        'name': 'Сергей козёл?',
+        'category': 'Люди',
+        'id': '4'
+    },
+    'survey5': {
+        'name': 'Гапон красавчик?',
+        'category': 'Люди',
+        'id': '1'
+    },
+    'survey6': {
+        'name': 'Права палочка твикс круче левой?',
+        'category': 'Другое',
+        'id': '2'
+    },
+    'survey7': {
+        'name': 'Леваяя палочка твикс хуже правой?',
+        'category': 'Другое',
+        'id': '3'
+    },
+    'survey8': {
         'name': 'Сергей козёл?',
         'category': 'Люди',
         'id': '4'
@@ -37,7 +62,7 @@ session = {
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title='question?', survey_list=all_surveys, session=session)
+    return render_template('index.html', title='question?', survey_list=all_surveys, category_list=categories, session=session)
 
 
 @app.route('/signup', methods=['POST', 'GET'])
