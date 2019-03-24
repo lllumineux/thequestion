@@ -18,14 +18,20 @@ function searchStart(){
 	for (num in nums){
 		$('.survey-preview')[num].style.display = 'flex';
 		if (nameFilter != ''){
-			if ($('.survey-preview')[num].children[0].innerHTML.toLowerCase().indexOf(nameFilter.toLowerCase()) < 0){
+			if ($('.survey-preview')[num].children[0].innerHTML.toLowerCase().indexOf(nameFilter.toLowerCase()) < 0) {
 				$('.survey-preview')[num].style.display = 'none';
 			};
 		};
 		if (clickedCategories.length > 0){
-			if (clickedCategories.indexOf($('.survey-preview')[num].children[1].innerHTML) < 0){
+			if (clickedCategories.indexOf($('.survey-preview')[num].children[1].innerHTML) < 0) {
 				$('.survey-preview')[num].style.display = 'none';
 			};
 		};
 	};
 };
+
+$('.survey-name-search').keyup(function(event){
+    if(event.keyCode == 13){
+        $('.category-search-submit').click();
+    };
+});

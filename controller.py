@@ -1,108 +1,64 @@
-from flask import Flask, session, render_template, request
-from werkzeug.utils import redirect
-
-app = Flask(__name__)
-
-categories = [
-    'Люди',
-    'Другое',
-    'Животное'
-]
-all_surveys = {
-    'survey1': {
-        'name': 'Гапон красавчик?',
-        'category': 'Люди',
-        'id': '1'
-    },
-    'survey2': {
-        'name': 'Правая палочка твикс круче левой?',
-        'category': 'Другое',
-        'id': '2'
-    },
-    'survey3': {
-        'name': 'Левая палочка твикс хуже правой?',
-        'category': 'Другое',
-        'id': '3'
-    },
-    'survey4': {
-        'name': 'Сергей козёл?',
-        'category': 'Люди',
-        'id': '4'
-    },
-    'survey5': {
-        'name': 'Гапон красавчик?',
-        'category': 'Люди',
-        'id': '1'
-    },
-    'survey6': {
-        'name': 'Права палочка твикс круче левой?',
-        'category': 'Другое',
-        'id': '2'
-    },
-    'survey7': {
-        'name': 'Леваяя палочка твикс хуже правой?',
-        'category': 'Другое',
-        'id': '3'
-    },
-    'survey8': {
-        'name': 'Сергей козёл?',
-        'category': 'Люди',
-        'id': '4'
-    }
-}
-all_users = {
-    'login': 'password',
-    'admin': 'admin'
-}
-session = {
-    'username': 'admin'
-}
+from flask_restful import abort
+from flask import Flask, redirect, session, request
+from flask import render_template as flask_render_template
+import extra.auth as auth
+from api.v1 import init as init_api_v1
+from dbase import db
+from models import User, Surveys
+from categories import categories
 
 
-@app.route('/')
-@app.route('/index')
-def index():
-    return render_template('index.html', title='question?', survey_list=all_surveys, category_list=categories, session=session)
+def init_route(app, db):
+    def render_template(*args, **kwargs):
+        kwargs['auth_user'] = auth.get_user()
+        return flask_render_template(*args, **kwargs)
 
+    init_api_v1(app, auth)
 
-@app.route('/signup', methods=['POST', 'GET'])
-def signup():
-    if request.method == 'GET':
-        if 'username' in session:
-            return redirect('/')
-        return render_template('signup.html', title='Зарегистрироваться')
+    @app.route('/')
+    @app.route('/index')
+    def index():
+        db.create_all()
+        print(session)
+        surveys_list = Surveys.query.filter_by()
+        return render_template('index.html', title='question?', survey_list=surveys_list, category_list=categories, session=session)
 
-    elif request.method == 'POST':
-        name = request.form['username']
-        password = request.form['password']
+    @app.route('/signup', methods=['GET', 'POST'])
+    def registration():
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
+            user = User.query.filter_by(username=username).first()
+            if user:
+                return redirect('/signup')
+            else:
+                User.add(username=username, password=password)
+                auth.login(username, password)
+                session['username'] = username
+                return redirect('/')
 
-        all_users[name] = password
-        session['username'] = name
+        return render_template(
+            'signup.html',
+            title='Регистрация'
+        )
+
+    @app.route('/login', methods=['GET', 'POST'])
+    def login():
+        if request.method == 'POST':
+            username = request.form['username']
+            if auth.login(username, request.form['password']):
+                session['username'] = username
+                return redirect('/')
+            else:
+                return redirect('/login')
+
+        return render_template(
+            'login.html',
+            title='Вход'
+        )
+
+    @app.route('/logout')
+    def logout():
+        session.pop('user_id', 0)
+        session.pop('username', 0)
         return redirect('/')
-
-
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    if request.method == 'GET':
-        if 'username' in session:
-            return redirect('/')
-        return render_template('login.html', title='Войти')
-
-    elif request.method == 'POST':
-        name = request.form['username']
-        password = request.form['password']
-
-        if name in all_users and all_users[name] == password:
-            session['username'] = name
-            return redirect('/')
-        return render_template('login.html', title='Войти')
-
-
-@app.route('/logout')
-def logout():
-    del session['username']
-    return redirect('/')
-
-
-if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080)
