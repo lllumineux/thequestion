@@ -1,0 +1,38 @@
+{% extends 'base_with_header.html' %}
+
+{% block content %}
+<form method="post" class="view-survey-content">
+	<div class="survey-view">
+		<div class="survey-view-title">
+			{{ survey.title }}
+		</div>
+		<div class="survey-view-category">
+			{{ survey.category }}
+		</div>
+		<div class="survey-view-stats">
+			<div class="show-stats">
+				Да : {{ survey.yes_ans }}<br><br>
+				Нет : {{ survey.no_ans }}
+			</div>
+			<div class="change-stats">
+			    <p><input name="chosen-ans" type="radio" value="да"> Да</p>
+			    <p><input name="chosen-ans" type="radio" value="нет" checked> Нет</p>
+			</div>
+		</div>
+		<input type="submit" value="Проголосовать" class="chosen_ans-btn">
+	</div>
+	{% if session['username'] == 'admin': %}
+		<div class="admin-survey-controls">
+			<a href="/surveys/delete/{{ survey.id }}" class="admin-survey-controls__element">Удалить</a>
+			{% if survey.publicity_check: %}
+				<a href="/surveys/hide/{{ survey.id }}" class="admin-survey-controls__element">Скрыть</a>
+			{% else %}
+				<a href="/surveys/show/{{ survey.id }}" class="admin-survey-controls__element">Показать</a>
+			{% endif %}
+			{% if survey.on_admin_check: %}
+				<a href="/surveys/mark_as_checked/{{ survey.id }}" class="admin-survey-controls__element">Отметить как провереное</a>
+			{% endif %}
+		</div>
+	{% endif %}
+</form>
+{% endblock %}

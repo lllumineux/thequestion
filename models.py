@@ -37,7 +37,7 @@ class Surveys(db.Model):
 
     @staticmethod
     def add(title, category, publicity_check, on_admin_check, user):
-        survey = Surveys(title=title, category=category, publicity_check=publicity_check, user=user)
+        survey = Surveys(title=title, category=category, publicity_check=publicity_check, on_admin_check=on_admin_check, user=user)
         db.session.add(survey)
         db.session.commit()
 
@@ -46,12 +46,40 @@ class Surveys(db.Model):
         db.session.delete(survey)
         db.session.commit()
 
+    @staticmethod
+    def show(survey):
+        survey.publicity_check = True
+        db.session.commit()
+
+    @staticmethod
+    def hide(survey):
+        survey.publicity_check = False
+        db.session.commit()
+
+    @staticmethod
+    def mark_as_checked(survey):
+        survey.on_admin_check = False
+        db.session.commit()
+
+    @staticmethod
+    def plus_yes(survey):
+        survey.yes_ans += 1
+        db.session.commit()
+
+    @staticmethod
+    def plus_no(survey):
+        survey.no_ans += 1
+        db.session.commit()
+
     @property
     def serialize(self):
         return {
             'id': self.id,
             'title': self.title,
             'category': self.category,
+            'on_admin_check': self.on_admin_check,
+            'yes_ans': self.yes_ans,
+            'no_ans': self.no_ans,
             'publicity_check': self.publicity_check,
             'user_id': self.user_id
         }

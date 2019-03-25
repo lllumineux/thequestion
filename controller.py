@@ -3,6 +3,7 @@ from flask import Flask, redirect, session, request
 from flask import render_template as flask_render_template
 import extra.auth as auth
 from api.v1 import init as init_api_v1
+from dbase import db
 from models import User, Surveys
 from categories import categories
 
@@ -23,7 +24,7 @@ def init_route(app, db):
         return render_template('index.html', title='question?', survey_list=surveys_list, category_list=categories, session=session)
 
     @app.route('/signup', methods=['GET', 'POST'])
-    def registration():
+    def signup():
         if request.method == 'POST':
             username = request.form['username']
             password = request.form['password']
@@ -65,11 +66,10 @@ def init_route(app, db):
             title = request.form['survey-title']
             category = request.form['survey-category']
             publicity_check = eval(request.form['publicity_check'])
-            on_admin_check = eval(request.form['publicity_check'])
+            on_admin_check = publicity_check
             if not publicity_check:
                 publicity_check = False
                 on_admin_check = False
-
             Surveys.add(title=title, category=category, publicity_check=publicity_check, on_admin_check=on_admin_check, user=auth.get_user())
             return redirect('/')
 
@@ -78,6 +78,78 @@ def init_route(app, db):
             title='Создание опроса',
             category_list=categories
         )
+
+    @app.route('/surveys/<int:survey_id>', methods=['GET', 'POST'])
+    def news_view(survey_id: int):
+        survey = Surveys.query.filter_by(id=survey_id).first()
+        if not survey:
+            abort(404)
+
+        if request.method == 'POST':
+            if not auth.is_authorized():
+                return redirect('/login')
+
+            chosen_ans = request.form['chosen-ans']
+            if chosen_ans == 'да':
+                Surveys.plus_yes(survey)
+            else:
+                Surveys.plus_no(survey)
+
+            return redirect('/')
+
+        return render_template(
+            'survey.html',
+            title='Опрос',
+            survey=survey
+        )
+
+    @app.route('/surveys/delete/<int:survey_id>')
+    def survey_delete(survey_id: int):
+        if not auth.is_authorized():
+            return redirect('/login')
+        if session['username'] != 'admin':
+            abort(403)
+
+        survey = Surveys.query.filter_by(id=survey_id).first()
+        Surveys.delete(survey)
+
+        return redirect('/')
+
+    @app.route('/surveys/show/<int:survey_id>')
+    def survey_show(survey_id: int):
+        if not auth.is_authorized():
+            return redirect('/login')
+        if session['username'] != 'admin':
+            abort(403)
+
+        survey = Surveys.query.filter_by(id=survey_id).first()
+        Surveys.show(survey)
+
+        return redirect('/')
+
+    @app.route('/surveys/hide/<int:survey_id>')
+    def survey_hide(survey_id: int):
+        if not auth.is_authorized():
+            return redirect('/login')
+        if session['username'] != 'admin':
+            abort(403)
+
+        survey = Surveys.query.filter_by(id=survey_id).first()
+        Surveys.hide(survey)
+
+        return redirect('/')
+
+    @app.route('/surveys/mark_as_checked/<int:survey_id>')
+    def survey_checked(survey_id: int):
+        if not auth.is_authorized():
+            return redirect('/login')
+        if session['username'] != 'admin':
+            abort(403)
+
+        survey = Surveys.query.filter_by(id=survey_id).first()
+        Surveys.mark_as_checked(survey)
+
+        return redirect('/')
 
     @app.route('/logout')
     def logout():

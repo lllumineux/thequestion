@@ -15,11 +15,11 @@
 	</div>
 	<div class="survey-preview-list">
 		{% for survey in survey_list %}
-				<div class="survey-preview">
-					<span class="survey-preview-name">{{ survey.title }}</span>
-					<span class="survey-preview-category">{{ survey.category }}</span>
-					<a href="surveys/{{ survey.id }}" class="survey-preview-link">Октрыть</a>
-				</div>
+			<div class="survey-preview">
+				<span class="survey-preview-name">{{ survey.title }}</span>
+				<span class="survey-preview-category">{{ survey.category }}</span>
+				<a href="surveys/{{ survey.id }}" class="survey-preview-link">Октрыть</a>
+			</div>
 		{% endfor %}
 	</div>
 </div>
