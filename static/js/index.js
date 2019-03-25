@@ -1,4 +1,5 @@
 clickedCategories = [];
+chosenOBJ = 0;
 
 function addCurrentCategory(obj){
 	if (clickedCategories.indexOf(obj.innerHTML) >= 0) {
@@ -35,3 +36,19 @@ $('.survey-name-search').keyup(function(event){
         $('.category-search-submit').click();
     };
 });
+
+function choseCategory(obj){
+	if (obj == chosenOBJ){
+		obj.classList.remove('chosen-category');
+		chosenOBJ = 0;
+	}
+	else {
+		if (chosenOBJ != 0) {
+			chosenOBJ.classList.remove('chosen-category');
+		};
+		obj.classList.add('chosen-category');
+		chosenOBJ = obj;
+	};
+
+	$('.survey-category')[0].value = obj.innerHTML;
+};

@@ -1,0 +1,24 @@
+{% extends 'base_with_header.html' %}
+
+{% block content %}
+<form method="post" class="create-survey-content">
+	<div class="create-survey-form">
+		<input type="text" name="survey-title" placeholder="Название опроса..." maxlength="30" class="survey-title">
+		<input type="text" name="survey-category" value="Другое" class="survey-category">
+		<div class="category-choice-wrapper">
+			<div class="category-choice">
+				{% for category_name in category_list %}
+					<div class="category-choice__element" onclick="choseCategory(this);">{{ category_name }}</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="survey-create-nav">
+			<div class="publicity-check">
+				<input type="checkbox" name="publicity_check" value="True" checked>
+				Отображать на<br>главной странице
+			</div>
+			<button type="submit" class="create-survey">Создать опрос</button>
+		</div>
+	</div>
+</form>
+{% endblock %}

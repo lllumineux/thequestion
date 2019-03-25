@@ -326,3 +326,88 @@ body {
 	font-weight: 700;
 	margin: 10px 0 0 25px;
 }
+/*----------Create survey page----------*/
+.create-survey-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: calc(100vh - 75px);
+}
+.create-survey-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 400px;
+}
+.survey-create-nav {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+.category-choice-wrapper {
+	overflow-y: scroll;
+	background: #ccc;
+	border-radius: 25px;
+	width: 100%;
+	height: 400px;
+	margin: 10px 0 0 0;
+}
+.category-choice {
+	display: flex;
+	flex-direction: column;
+	padding: 25px 25px 15px 25px;
+}
+.category-choice__element {
+	cursor: pointer;
+	color: #000;
+	font-weight: 700;
+	font-size: 14px;
+	background: #b3b3b3;
+	border-radius: 50px;
+	padding: 7.5px 10px;
+	margin: 0 0 10px 0;
+}
+.category-choice-wrapper::-webkit-scrollbar-button, .category-choice-wrapper::-webkit-resizer {
+	width: 0;
+	height: 0;
+}
+.category-choice-wrapper::-webkit-scrollbar-track {
+	background: transparent;
+}
+.category-choice-wrapper::-webkit-scrollbar-thumb {
+	background: #999;
+	border-radius: 100px;
+}
+.category-choice-wrapper::-webkit-scrollbar {
+	width: 10px;
+	height: 0;
+}
+.survey-title {
+	background: transparent;
+	border: none;
+	font-weight: 400;
+	font-size: 20px;
+	width: 100%;
+	text-align: center;
+	padding: 5px 0 5px 0;
+	font-style: italic;
+}
+.survey-create-nav {
+	margin: 15px 0 0 0;
+}
+.create-survey {
+	cursor: pointer;
+	transition: all 0.175s linear;
+	color: #e5e5e5;
+	text-decoration: none;
+	font-size: 12px;
+	font-weight: 700;
+	background: #000;
+	border-radius: 100px;
+	border: none;
+	padding: 10px 20px;
+}
+.survey-category {
+	display: none;
+}

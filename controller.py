@@ -3,7 +3,6 @@ from flask import Flask, redirect, session, request
 from flask import render_template as flask_render_template
 import extra.auth as auth
 from api.v1 import init as init_api_v1
-from dbase import db
 from models import User, Surveys
 from categories import categories
 
@@ -19,8 +18,8 @@ def init_route(app, db):
     @app.route('/index')
     def index():
         db.create_all()
-        print(session)
-        surveys_list = Surveys.query.filter_by()
+
+        surveys_list = Surveys.query.filter_by(publicity_check=True, on_admin_check=False)
         return render_template('index.html', title='question?', survey_list=surveys_list, category_list=categories, session=session)
 
     @app.route('/signup', methods=['GET', 'POST'])
@@ -55,6 +54,29 @@ def init_route(app, db):
         return render_template(
             'login.html',
             title='Вход'
+        )
+
+    @app.route('/surveys/create', methods=['GET', 'POST'])
+    def add_survey():
+        if not auth.is_authorized():
+            return redirect('/login')
+
+        if request.method == 'POST':
+            title = request.form['survey-title']
+            category = request.form['survey-category']
+            publicity_check = eval(request.form['publicity_check'])
+            on_admin_check = eval(request.form['publicity_check'])
+            if not publicity_check:
+                publicity_check = False
+                on_admin_check = False
+
+            Surveys.add(title=title, category=category, publicity_check=publicity_check, on_admin_check=on_admin_check, user=auth.get_user())
+            return redirect('/')
+
+        return render_template(
+            'survey_create.html',
+            title='Создание опроса',
+            category_list=categories
         )
 
     @app.route('/logout')

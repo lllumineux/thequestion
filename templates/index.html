@@ -15,13 +15,11 @@
 	</div>
 	<div class="survey-preview-list">
 		{% for survey in survey_list %}
-			{% if survey_list[survey]['public']: %}
 				<div class="survey-preview">
-					<span class="survey-preview-name">{{ survey_list[survey]['name'] }}</span>
-					<span class="survey-preview-category">{{ survey_list[survey]['category'] }}</span>
-					<a href="surveys/{{ survey_list[survey]['id'] }}" class="survey-preview-link">Октрыть</a>
+					<span class="survey-preview-name">{{ survey.title }}</span>
+					<span class="survey-preview-category">{{ survey.category }}</span>
+					<a href="surveys/{{ survey.id }}" class="survey-preview-link">Октрыть</a>
 				</div>
-			{% endif %}
 		{% endfor %}
 	</div>
 </div>
