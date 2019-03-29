@@ -5,6 +5,21 @@ body {
 	background: #e5e5e5;
 	font-family: 'Montserrat', sans-serif;
 }
+::-webkit-scrollbar-button, ::-webkit-resizer {
+	width: 0;
+	height: 0;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background: #000;
+	border-radius: 100px;
+}
+::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+}
 /*----------Header----------*/
 .header {
 	display: flex;
@@ -182,7 +197,7 @@ body {
 	align-items: center;
 	background: #ccc;
 	border-radius: 50px;
-	width: 350px;
+	min-width: 350px;
 	height: 150px;
 	margin: 10px 15px 0 0;
 }
@@ -445,6 +460,18 @@ body {
 	text-align: center;
 	margin: 10px 0 0 0;
 }
+.survey-view-link {
+	cursor: pointer;
+	transition: all 0.175s linear;
+	color: #000;
+	text-decoration: none;
+	font-size: 12px;
+	font-weight: 700;
+	border-radius: 100px;
+	border: 2px solid #000;
+	padding: 10px 40px;
+	margin: 10px 5px 0 5px;
+}
 .survey-view-stats {
 	display: flex;
 	justify-content: space-around;
@@ -481,4 +508,20 @@ body {
 	border: 2px solid #000;
 	padding: 10px 40px;
 	margin: 50px 5px 0 5px;
+}
+/*----------User's surveys page----------*/
+.surveys-view {
+	overflow-x: scroll;
+	padding: 0 0 100px 0;
+}
+.surveys-view__element {
+	margin: 100px 0 0 350px;
+}
+.surveys-view-title {
+	font-weight: 500;
+	font-size: 20px;
+	padding: 0 0 10px 0;
+}
+.surveys-view-surveys {
+	display: flex;
 }

@@ -31,9 +31,10 @@ class Surveys(db.Model):
     no_ans = db.Column(db.Integer, default=0)
     user = db.relationship('User', backref=db.backref('survey_list', lazy=True))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    voted_users_id = db.Column(db.String, default='')
 
     def __repr__(self):
-        return '<Surveys {} {} {} {} {} {} {} {}>'.format(self.id, self.title, self.category, self.publicity_check, self.on_admin_check, self.yes_ans, self.no_ans, self.user_id)
+        return '<Surveys {} {} {} {} {} {} {} {} {}>'.format(self.id, self.title, self.category, self.publicity_check, self.on_admin_check, self.yes_ans, self.no_ans, self.user_id, self.voted_users_id)
 
     @staticmethod
     def add(title, category, publicity_check, on_admin_check, user):
@@ -69,6 +70,11 @@ class Surveys(db.Model):
     @staticmethod
     def plus_no(survey):
         survey.no_ans += 1
+        db.session.commit()
+
+    @staticmethod
+    def vote_add(survey, user_id):
+        survey.voted_users_id += ' ' + str(user_id)
         db.session.commit()
 
     @property

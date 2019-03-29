@@ -18,11 +18,11 @@
 			<a href="/index" class="site-name"><h1>question?</h1></a>
 		</div>
 		<div class="site-menu">
-			<a href="#">Мои опросы</a>
+			<a href="/surveys">Мои опросы</a>
 			<a href="/surveys/create">Создать опрос</a>
 		</div>
 		<div class="user-controls">
-			{% if session: %}
+			{% if session['username']: %}
 				<span class="username">{{ session['username'] }}</span>
 				<a href="/logout" class="exit">
 					<img src="../static/images/icons/exit.png" class="exit-icon">

@@ -52,3 +52,12 @@ function choseCategory(obj){
 
 	$('.survey-category')[0].value = obj.innerHTML;
 };
+
+function copyLink(){
+	var copytext = document.createElement('input')
+	copytext.value = window.location.href
+	document.body.appendChild(copytext)
+	copytext.select()
+	document.execCommand('copy')
+	document.body.removeChild(copytext)
+}

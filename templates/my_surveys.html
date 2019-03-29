@@ -1,0 +1,88 @@
+{% extends 'base_with_header.html' %}
+
+{% block content %}
+<div class="surveys-view">
+	<div class="surveys-view__element">
+		<div class="surveys-view-title">
+			Опросы, на проверке:
+		</div>
+		<div class="surveys-view-surveys">
+			{% if on_check_surveys[0]: %}
+				{% for survey in on_check_surveys %}
+					<div class="survey-preview">
+						<span class="survey-preview-name">{{ survey.title }}</span>
+						<span class="survey-preview-category">{{ survey.category }}</span>
+						<a href="surveys/{{ survey.id }}" class="survey-preview-link">Октрыть</a>
+					</div>
+				{% endfor %}
+			{% else %}
+				<div class="survey-preview">
+					<span class="survey-preview-name">Пока здесь ничего нет(</span>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="surveys-view__element">
+		<div class="surveys-view-title">
+			Приватные опросы:
+		</div>
+		<div class="surveys-view-surveys">
+			{% if hidden_surveys[0]: %}
+				{% for survey in hidden_surveys %}
+					<div class="survey-preview">
+						<span class="survey-preview-name">{{ survey.title }}</span>
+						<span class="survey-preview-category">{{ survey.category }}</span>
+						<a href="surveys/{{ survey.id }}" class="survey-preview-link">Октрыть</a>
+					</div>
+				{% endfor %}
+			{% else %}
+				<div class="survey-preview">
+					<span class="survey-preview-name">Пока здесь ничего нет(</span>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="surveys-view__element">
+		<div class="surveys-view-title">
+			Публичные опросы:
+		</div>
+		<div class="surveys-view-surveys">
+			{% if shown_surveys[0]: %}
+				{% for survey in shown_surveys %}
+					<div class="survey-preview">
+						<span class="survey-preview-name">{{ survey.title }}</span>
+						<span class="survey-preview-category">{{ survey.category }}</span>
+						<a href="surveys/{{ survey.id }}" class="survey-preview-link">Октрыть</a>
+					</div>
+				{% endfor %}
+			{% else %}
+				<div class="survey-preview">
+					<span class="survey-preview-name">Пока здесь ничего нет(</span>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	{% if session['username'] == 'admin': %}
+		<div class="surveys-view__element">
+			<div class="surveys-view-title">
+				Опросы, требующие проверки:
+			</div>
+			<div class="surveys-view-surveys">
+				{% if surveys_on_check[0]: %}
+					{% for survey in surveys_on_check %}
+						<div class="survey-preview">
+							<span class="survey-preview-name">{{ survey.title }}</span>
+							<span class="survey-preview-category">{{ survey.category }}</span>
+							<a href="surveys/{{ survey.id }}" class="survey-preview-link">Октрыть</a>
+						</div>
+					{% endfor %}
+				{% else %}
+				<div class="survey-preview">
+					<span class="survey-preview-name">Пока здесь ничего нет(</span>
+				</div>
+			{% endif %}
+			</div>
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

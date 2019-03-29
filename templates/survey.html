@@ -9,17 +9,26 @@
 		<div class="survey-view-category">
 			{{ survey.category }}
 		</div>
+		<div class="survey-view-category">
+			<div class="survey-view-link" data-link="/surveys/{{ survey.id }}" onclick="copyLink();">
+				Скопировать ссылку на опрос
+			</div>
+		</div>
 		<div class="survey-view-stats">
 			<div class="show-stats">
 				Да : {{ survey.yes_ans }}<br><br>
 				Нет : {{ survey.no_ans }}
 			</div>
-			<div class="change-stats">
-			    <p><input name="chosen-ans" type="radio" value="да"> Да</p>
-			    <p><input name="chosen-ans" type="radio" value="нет" checked> Нет</p>
-			</div>
+			{% if not user_voted: %}
+				<div class="change-stats">
+				    <p><input name="chosen-ans" type="radio" value="да"> Да</p>
+				    <p><input name="chosen-ans" type="radio" value="нет" checked> Нет</p>
+				</div>
+			{% endif %}
 		</div>
-		<input type="submit" value="Проголосовать" class="chosen_ans-btn">
+		{% if not user_voted: %}
+			<input type="submit" value="Проголосовать" class="chosen_ans-btn">
+		{% endif %}
 	</div>
 	{% if session['username'] == 'admin': %}
 		<div class="admin-survey-controls">
